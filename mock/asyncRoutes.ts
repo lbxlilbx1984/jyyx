@@ -1,6 +1,13 @@
 // 模拟后端动态生成路由
 import { MockMethod } from "vite-plugin-mock";
-import { system, permission, frame, tabs, competitor } from "@/router/enums";
+import {
+  system,
+  permission,
+  frame,
+  tabs,
+  competitor,
+  salesarea
+} from "@/router/enums";
 
 /**
  * roles：页面级别权限，这里模拟二种 "admin"、"common", "role1"
@@ -211,8 +218,8 @@ const role1Router = {
   path: "/competitor",
   meta: {
     icon: "IF-team-icontabs",
-    title: "menus.hsCompetitor",
-    rank: competitor,
+    title: "menus.hsCompetitorMgr",
+    rank: competitor
   },
   children: [
     {
@@ -220,6 +227,14 @@ const role1Router = {
       name: "CompetitorDetail",
       meta: {
         title: "menus.hsCompetitorDetail",
+        roles: ["role1"]
+      }
+    },
+    {
+      path: "/competitor/product-detail",
+      name: "hsCompetitorProductDetail",
+      meta: {
+        title: "menus.hsCompetitorProductDetail",
         roles: ["role1"]
       }
     },
@@ -232,9 +247,36 @@ const role1Router = {
         showLink: false,
         roles: ["role1"]
       }
-    },
+    }
   ]
-}
+};
+const salesAreaRouter = {
+  path: "/salesarea",
+  meta: {
+    icon: "IF-team-icontabs",
+    title: "menus.hsSalesAreaMgr",
+    rank: salesarea
+  },
+  children: [
+    {
+      path: "/salesarea/create",
+      name: "SalesAreaCreate",
+      meta: {
+        title: "menus.hsSalesAreaCreate",
+        roles: ["role1"]
+      }
+    },
+    {
+      path: "/salesarea/index",
+      name: "SalesAreaDetail",
+      meta: {
+        title: "menus.hsSalesAreaDetail",
+        roles: ["role1"]
+      }
+    }
+  ]
+};
+
 export default [
   {
     url: "/getAsyncRoutes",
@@ -242,7 +284,14 @@ export default [
     response: () => {
       return {
         success: true,
-        data: [systemRouter, permissionRouter, frameRouter, tabsRouter, role1Router]
+        data: [
+          systemRouter,
+          permissionRouter,
+          frameRouter,
+          tabsRouter,
+          role1Router,
+          salesAreaRouter
+        ]
         // data: [],
       };
     }

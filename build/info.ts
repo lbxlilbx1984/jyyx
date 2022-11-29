@@ -15,15 +15,7 @@ export function viteBuildInfo(): Plugin {
       config = resolvedConfig;
     },
     buildStart() {
-      console.log(
-        bold(
-          green(
-            `👏欢迎使用${blue(
-              "[vue-pure-admin]"
-            )}，如果您感觉不错，记得点击后面链接给个star哦💖 https://github.com/xiaoxian521/vue-pure-admin`
-          )
-        )
-      );
+      console.log(bold(green(`👏欢迎使用${blue("[KingMedCRM]")}`)));
       if (config.command === "build") {
         startTime = dayjs(new Date());
       }

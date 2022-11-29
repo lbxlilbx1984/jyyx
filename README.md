@@ -3,7 +3,7 @@
 - 安装依赖
 
 ```bash
-cd vue-pure-admin
+cd KingMedCRM
 
 pnpm install
 

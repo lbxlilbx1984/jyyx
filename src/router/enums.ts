@@ -21,10 +21,9 @@ const home = 0, // 平台规定只有 home 路由的 rank 才能为 0 ，所以�
   editor = 18,
   guide = 19,
   about = 20,
-
-  competitor = 21
-  ;
-
+  // jyyx add
+  competitor = 21,
+  salesarea = 22;
 
 export {
   home,
@@ -48,6 +47,6 @@ export {
   editor,
   guide,
   about,
-
   competitor,
+  salesarea
 };

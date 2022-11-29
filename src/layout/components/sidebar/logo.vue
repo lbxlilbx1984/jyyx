@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useNav } from "@/layout/hooks/useNav";
+import logoUrl from "@/assets/imgs/jyyx_logo.png";
 
 const props = defineProps({
   collapse: Boolean
@@ -18,8 +19,9 @@ const { title } = useNav();
         class="sidebar-logo-link"
         to="/"
       >
-        <FontIcon icon="team-iconlogo" svg style="width: 35px; height: 35px" />
-        <span class="sidebar-title">{{ title }}</span>
+        <!-- <FontIcon icon="team-iconlogo" svg style="width: 35px; height: 35px" />
+        <span class="sidebar-title">{{ title }}</span> -->
+        <el-image :src="logoUrl" fit="scale-down" />
       </router-link>
       <router-link
         v-else
@@ -28,8 +30,9 @@ const { title } = useNav();
         class="sidebar-logo-link"
         to="/"
       >
-        <FontIcon icon="team-iconlogo" svg style="width: 35px; height: 35px" />
-        <span class="sidebar-title">{{ title }}</span>
+        <!-- <FontIcon icon="team-iconlogo" svg style="width: 35px; height: 35px" />
+        <span class="sidebar-title">{{ title }}</span> -->
+        <el-image :src="logoUrl" fit="scale-down" />
       </router-link>
     </transition>
   </div>
@@ -39,7 +42,7 @@ const { title } = useNav();
 .sidebar-logo-container {
   position: relative;
   width: 100%;
-  height: 48px;
+  height: 65px;
   text-align: center;
   overflow: hidden;
 

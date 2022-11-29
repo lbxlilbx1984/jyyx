@@ -3,7 +3,7 @@ import Search from "./search/index.vue";
 import Notice from "./notice/index.vue";
 import mixNav from "./sidebar/mixNav.vue";
 import { useNav } from "@/layout/hooks/useNav";
-import Breadcrumb from "./sidebar/breadCrumb.vue";
+// import Breadcrumb from "./sidebar/breadCrumb.vue";
 import topCollapse from "./sidebar/topCollapse.vue";
 import { useTranslationLang } from "../hooks/useTranslationLang";
 import globalization from "@/assets/svg/globalization.svg?component";
@@ -35,10 +35,13 @@ const { t, locale, translationCh, translationEn } = useTranslationLang();
       @toggleClick="toggleSideBar"
     />
 
-    <Breadcrumb
+    <!-- <Breadcrumb
       v-if="layout !== 'mix' && device !== 'mobile'"
       class="breadcrumb-container"
-    />
+    /> -->
+    <div v-if="layout !== 'mix' && device !== 'mobile'" class="web-page-header">
+      金域CRM管理系统
+    </div>
 
     <mixNav v-if="layout === 'mix'" />
 
@@ -116,6 +119,14 @@ const { t, locale, translationCh, translationEn } = useTranslationLang();
   width: 100%;
   height: 48px;
   overflow: hidden;
+
+  .web-page-header {
+    font-weight: bold;
+    font-size: 24px;
+    float: left;
+    line-height: 48px;
+    padding-left: 20px;
+  }
 
   .hamburger-container {
     line-height: 48px;

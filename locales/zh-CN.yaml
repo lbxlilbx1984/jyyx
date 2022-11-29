@@ -107,6 +107,10 @@ menus:
   hsCompetitorMgr: 竞争对手管理
   hsCompetitorDetail: 竞争对手详情
   hsCompetitorProductDetail: 竞争对手产品详情
+
+  hsSalesAreaMgr: 销售区域管理
+  hsSalesAreaCreate: 销售区域创建
+  hsSalesAreaDetail: 销售区域详情
 status:
   hsLoad: 加载中...
 login:

@@ -6,7 +6,7 @@ export default [
     url: "/login",
     method: "post",
     response: ({ body }) => {
-      debugger
+      // debugger
       if (body.username === "admin") {
         return {
           success: true,

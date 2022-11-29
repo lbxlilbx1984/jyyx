@@ -1,56 +1,26 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import { clone } from "@pureadmin/utils";
-import { transformI18n } from "@/plugins/i18n";
-import { TreeSelect } from "@pureadmin/components";
-import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
-import { usePermissionStoreHook } from "@/store/modules/permission";
-import {
-  deleteChildren,
-  getNodeByUniqueId,
-  appendFieldByUniqueId
-} from "@/utils/tree";
-import { useDetail } from "./hooks";
+// import { ref, computed } from "vue";
+// import { clone } from "@pureadmin/utils";
+// import { transformI18n } from "@/plugins/i18n";
+// import { TreeSelect } from "@pureadmin/components";
+// import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
+// import { usePermissionStoreHook } from "@/store/modules/permission";
 
 defineOptions({
-  name: "Tabs"
+  name: "Competitor"
 });
 
-const { toDetail, router } = useDetail();
-const menusTree = clone(usePermissionStoreHook().wholeMenus, true);
-
-const treeData = computed(() => {
-  return appendFieldByUniqueId(deleteChildren(menusTree), 0, {
-    disabled: true
-  });
-});
-
-const value = ref<string[]>([]);
-
-const multiTags = computed(() => {
-  return useMultiTagsStoreHook()?.multiTags;
-});
-
-function onCloseTags() {
-  value.value.forEach(uniqueId => {
-    const currentPath =
-      getNodeByUniqueId(treeData.value, uniqueId).redirect ??
-      getNodeByUniqueId(treeData.value, uniqueId).path;
-    useMultiTagsStoreHook().handleTags("splice", currentPath);
-    if (currentPath === "/tabs/index")
-      router.push({
-        path: multiTags.value[(multiTags as any).value.length - 1].path
-      });
-  });
-}
+// const menusTree = clone(usePermissionStoreHook().wholeMenus, true);
+// function onCloseTags() {
+//   return false;
+// }
 </script>
-
 <template>
   <el-card>
     <template #header>
-      <div>标签页复用，超出限制自动关闭（使用场景: 动态路由）</div>
+      <div>竞争对手详情</div>
     </template>
-    <div class="flex flex-wrap items-center">
+    <!-- <div class="flex flex-wrap items-center">
       <p>query传参模式：</p>
       <el-button
         class="m-2"
@@ -119,37 +89,8 @@ function onCloseTags() {
     </el-button>
 
     <el-divider />
-    <el-button
-      @click="
-        $router.push({
-          name: 'Menu1-2-2',
-          query: { text: '传name对象，优先推荐' }
-        })
-      "
-    >
-      携参跳转页内菜单（传name对象，优先推荐）
-    </el-button>
-    <el-button
-      @click="
-        $router.push({
-          path: '/nested/menu1/menu1-2/menu1-2-2',
-          query: { text: '传path对象' }
-        })
-      "
-    >
-      携参跳转页内菜单（传path对象）
-    </el-button>
-    <el-link
-      class="ml-4"
-      href="https://router.vuejs.org/zh/guide/essentials/navigation.html#%E5%AF%BC%E8%88%AA%E5%88%B0%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BD%8D%E7%BD%AE"
-      target="_blank"
-    >
-      点击查看更多跳转方式
-    </el-link>
-
-    <el-divider />
     <el-button @click="$router.push({ name: 'Empty' })">
       跳转无Layout的空白页面
-    </el-button>
+    </el-button> -->
   </el-card>
 </template>

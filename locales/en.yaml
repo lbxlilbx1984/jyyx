@@ -104,10 +104,13 @@ menus:
   hsPureTableHigh: High Usage
   hsTree: Big Data Tree
 
-
   hsCompetitorMgr: Competitor Manager
   hsCompetitorDetail: Competitor Detail
   hsCompetitorProductDetail: Competitor Product Detail
+
+  hsSalesAreaMgr: SalesArea Manager
+  hsSalesAreaCreate: SalesArea Create
+  hsSalesAreaDetail: SalesArea Detail
 status:
   hsLoad: Loading...
 login:

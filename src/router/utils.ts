@@ -155,7 +155,7 @@ function addPathMatch() {
 function initRouter() {
   return new Promise(resolve => {
     getAsyncRoutes().then(({ data }) => {
-      debugger
+      // debugger
       if (data.length === 0) {
         usePermissionStoreHook().handleWholeMenus(data);
         resolve(router);
