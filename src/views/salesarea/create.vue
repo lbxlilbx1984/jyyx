@@ -67,7 +67,18 @@
           </el-col>
           <el-col class="el-col-sm-6">
             <el-form-item label="业务类型：" prop="busiType">
-              <el-input v-model="formData.busiType" disabled />
+              <el-select
+                v-model="formData.busiType"
+                placeholder="请选择业务类型"
+                @change="onChangeBusiType"
+              >
+                <el-option
+                  v-for="item in busiTypeOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -161,6 +172,10 @@ import { FormInstance } from "element-plus";
 import { reactive, ref, onMounted } from "vue";
 import { TableProBar } from "@/components/ReTable";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
+import { useNav } from "@/layout/hooks/useNav";
+import dayjs from "dayjs";
+
+const { username } = useNav();
 
 defineOptions({
   name: "SalesAreaCreate"
@@ -185,11 +200,12 @@ function handleSelectionChange(val) {
   console.log("handleSelectionChange", val);
 }
 
+const cdate = dayjs(new Date()).format("YYYY-MM-DD");
 const formData = reactive({
   subCompany: "", // 子/孙公司
   salesArea: "", // 销售区域
-  createrName: "", // 创建人姓名
-  createrDate: "", // 创建日期
+  createrName: username || "", // 创建人姓名
+  createrDate: cdate, // 创建日期
   applyStatus: "", // 申请状态
   busiType: "" // 业务类型
 });
@@ -239,6 +255,24 @@ const applyStatusOptions = [
  * @param val
  */
 function onChangeSalesArea(val) {
+  console.log(val);
+}
+
+const busiTypeOptions = [
+  {
+    value: "1",
+    label: "外包"
+  },
+  {
+    value: "2",
+    label: "共建"
+  }
+];
+/**
+ * onChange busiType
+ * @param val
+ */
+function onChangeBusiType(val) {
   console.log(val);
 }
 

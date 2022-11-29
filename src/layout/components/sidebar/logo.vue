@@ -21,7 +21,8 @@ const { title } = useNav();
       >
         <!-- <FontIcon icon="team-iconlogo" svg style="width: 35px; height: 35px" />
         <span class="sidebar-title">{{ title }}</span> -->
-        <el-image :src="logoUrl" fit="scale-down" />
+        <!-- <el-image :src="logoUrl" fit="scale-down" /> -->
+        <span class="sidebar-title">{{ title }}</span>
       </router-link>
       <router-link
         v-else
@@ -29,6 +30,7 @@ const { title } = useNav();
         :title="title"
         class="sidebar-logo-link"
         to="/"
+        style="display: inline-block; height: 55px"
       >
         <!-- <FontIcon icon="team-iconlogo" svg style="width: 35px; height: 35px" />
         <span class="sidebar-title">{{ title }}</span> -->
