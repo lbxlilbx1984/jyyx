@@ -3,6 +3,7 @@ import { useGlobal } from "@pureadmin/utils";
 import backTop from "@/assets/svg/back_top.svg?component";
 import { h, computed, Transition, defineComponent } from "vue";
 import { usePermissionStoreHook } from "@/store/modules/permission";
+// import Breadcrumb from "./sidebar/breadCrumb.vue";
 
 const props = defineProps({
   fixedHeader: Boolean
@@ -80,6 +81,9 @@ const transitionMain = defineComponent({
   >
     <router-view>
       <template #default="{ Component, route }">
+        <!-- <div class="page-top-section">
+          <Breadcrumb class="breadcrumb-container" />
+        </div> -->
         <el-scrollbar v-if="props.fixedHeader">
           <el-backtop title="回到顶部" target=".app-main .el-scrollbar__wrap">
             <backTop />

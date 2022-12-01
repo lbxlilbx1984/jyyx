@@ -311,10 +311,10 @@ function onClickDrop(key, item, selectRoute?: RouteConfigs) {
   });
 }
 
-function handleCommand(command: any) {
+/* function handleCommand(command: any) {
   const { key, item } = command;
   onClickDrop(key, item);
-}
+} */
 
 /** 触发右键中菜单的点击事件 */
 function selectTag(key, item) {
@@ -567,7 +567,7 @@ onMounted(() => {
       </ul>
     </transition>
     <!-- 右侧功能按钮 -->
-    <el-dropdown
+    <!-- <el-dropdown
       trigger="click"
       placement="bottom-end"
       @command="handleCommand"
@@ -589,7 +589,7 @@ onMounted(() => {
           </el-dropdown-item>
         </el-dropdown-menu>
       </template>
-    </el-dropdown>
+    </el-dropdown> -->
   </div>
 </template>
 

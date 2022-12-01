@@ -1,6 +1,19 @@
 <template>
   <div class="main">
     <el-card>
+      <template #header>
+        <div class="card-header">
+          <span style="font-size: 14pt; font-weight: bold">{{
+            _pageHeaderTitle
+          }}</span>
+
+          <div style="display: inline-block; float: right; margin-right: 10px">
+            <el-button type="success">保存</el-button>
+            <el-button type="primary">提交</el-button>
+            <el-button type="danger" plain>返回</el-button>
+          </div>
+        </div>
+      </template>
       <el-form ref="formRef" :inline="true" :model="formData">
         <el-row>
           <el-col class="el-col-sm-6">
@@ -83,7 +96,7 @@
           </el-col>
         </el-row>
 
-        <el-form-item>
+        <!-- <el-form-item>
           <el-button
             type="primary"
             :icon="useRenderIcon('search')"
@@ -98,116 +111,141 @@
           >
             重置
           </el-button>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
     </el-card>
 
-    <TableProBar
-      title="部门列表"
-      :loading="loading"
-      :tableRef="tableRef?.getTableRef()"
-      :dataList="dataList"
-      @refresh="onSearch"
-    >
-      <template #buttons>
-        <el-button type="primary" :icon="useRenderIcon('add')">
-          新增部门
-        </el-button>
+    <el-card style="margin-top: 20px">
+      <template #header>
+        <div class="card-header">
+          <span style="font-size: 14pt; font-weight: bold"> 地理区域 </span>
+        </div>
       </template>
-      <template v-slot="{ size, checkList }">
-        <pure-table
-          ref="tableRef"
-          border
-          align-whole="center"
-          row-key="id"
-          showOverflowTooltip
-          table-layout="auto"
-          default-expand-all
-          :size="size"
-          :data="dataList"
-          :columns="columns"
-          :checkList="checkList"
-          :header-cell-style="{
-            background: 'var(--el-table-row-hover-bg-color)',
-            color: 'var(--el-text-color-primary)'
-          }"
-          @selection-change="handleSelectionChange"
-        >
-          <template #operation="{ row }">
-            <el-button
-              class="reset-margin"
-              link
-              type="primary"
-              :size="size"
-              @click="handleUpdate(row)"
-              :icon="useRenderIcon('edits')"
-            >
-              修改
-            </el-button>
-            <el-popconfirm title="是否确认删除?">
-              <template #reference>
-                <el-button
-                  class="reset-margin"
-                  link
-                  type="primary"
-                  :size="size"
-                  :icon="useRenderIcon('delete')"
-                  @click="handleDelete(row)"
-                >
-                  删除
-                </el-button>
-              </template>
-            </el-popconfirm>
+      <el-table
+        ref="tableRef"
+        :border="true"
+        align-whole="center"
+        showOverflowTooltip
+        table-layout="auto"
+        :data="dataList"
+        :header-cell-style="{
+          background: 'var(--el-table-row-hover-bg-color)',
+          color: 'var(--el-text-color-primary)'
+        }"
+      >
+        <el-table-column fixed prop="index" label="序号" width="120" />
+        <el-table-column prop="sf" label="省份" />
+        <el-table-column prop="cs" label="城市" />
+        <el-table-column prop="qx" label="区县" />
+        <el-table-column prop="zip" label="操作" width="150">
+          <template v-slot="scope">
+            <template v-if="true">
+              <!-- <el-button
+                class="text-info"
+                size="mini"
+                type="text"
+                @click="resetSumbitPage(scope.$index, scope.row)"
+                >编辑</el-button
+              > -->
+              <el-button
+                size="small"
+                type="danger"
+                text
+                :disabled="scope.row.STATS != '0'"
+                @click="handleDelete(scope.row)"
+                >删除</el-button
+              >
+            </template>
+            <!-- <template v-if="scope.row.STATS && scope.row.STATS != '0'">
+              <el-button
+                class="text-info"
+                v-if="scope.row.STATS == '6'"
+                size="mini"
+                type="text"
+                @click="resetSumbitPage(scope.$index, scope.row)"
+                >重新提交</el-button
+              >
+              <el-button
+                class="text-info"
+                size="mini"
+                type="text"
+                @click="viewDetail(scope.$index, scope.row)"
+                >查看</el-button
+              >
+              <el-button
+                class="text-info"
+                size="mini"
+                type="text"
+                v-if="
+                  scope.row.STATS == '4' ||
+                  scope.row.STATS == '5' ||
+                  scope.row.STATS == '6'
+                "
+                @click="viewK2Detail(scope.$index, scope.row)"
+                >审批进度</el-button
+              >
+            </template> -->
           </template>
-        </pure-table>
+        </el-table-column>
+      </el-table>
+    </el-card>
+
+    <el-card style="margin-top: 20px">
+      <template #header>
+        <div class="card-header">
+          <span style="font-size: 14pt; font-weight: bold">审批记录</span>
+        </div>
       </template>
-    </TableProBar>
+      <div>
+        <el-steps :active="2" align-center finish-status="success">
+          <el-step title="销售代表1" description="申请人" />
+          <el-step title="财务1" description="费用合规" />
+          <el-step title="经理1" description="一级审批" />
+          <el-step title="经理2" description="二级审批" />
+        </el-steps>
+      </div>
+    </el-card>
   </div>
 </template>
 <script setup lang="ts">
-// import { useColumns } from "./columns";
-import { handleTree } from "@/utils/tree";
-import { getDeptList } from "@/api/system";
+// import { areaColumns } from "./columns";
+// import { handleTree } from "@/utils/tree";
+import { getAreaList } from "@/api/salesarea";
 import { FormInstance } from "element-plus";
 import { reactive, ref, onMounted } from "vue";
-import { TableProBar } from "@/components/ReTable";
-import { useRenderIcon } from "@/components/ReIcon/src/hooks";
+// import { TableProBar } from "@/components/ReTable";
+// import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import { useNav } from "@/layout/hooks/useNav";
 import dayjs from "dayjs";
-
-const { username } = useNav();
+import { useRoute } from "vue-router";
+import { transformI18n } from "@/plugins/i18n";
+// import { useTags } from "@/layout/hooks/useTag";
+import { ElMessage, ElMessageBox } from "element-plus";
 
 defineOptions({
   name: "SalesAreaCreate"
 });
 
+const { username } = useNav();
+const route = useRoute();
+const _pageHeaderTitle = transformI18n(route.meta?.title);
+
 const dataList = ref([]);
 const loading = ref(true);
-// const { columns } = useColumns();
+
+// const { columns } = areaColumns();
 
 const formRef = ref<FormInstance>();
 const tableRef = ref();
 
-function handleUpdate(row) {
-  console.log(row);
-}
-
-function handleDelete(row) {
-  console.log(row);
-}
-
-function handleSelectionChange(val) {
-  console.log("handleSelectionChange", val);
-}
-
 const cdate = dayjs(new Date()).format("YYYY-MM-DD");
 const formData = reactive({
-  subCompany: "", // 子/孙公司
+  subCompany: "jyyx", // 子/孙公司
   salesArea: "", // 销售区域
   createrName: username || "", // 创建人姓名
   createrDate: cdate, // 创建日期
   applyStatus: "", // 申请状态
-  busiType: "" // 业务类型
+  busiType: "1" // 业务类型
 });
 
 const areaOptions = [
@@ -278,19 +316,40 @@ function onChangeBusiType(val) {
 
 async function onSearch() {
   loading.value = true;
-  const { data } = await getDeptList();
-  dataList.value = handleTree(data as any);
+
+  const { data } = await getAreaList();
+  dataList.value = data.list;
+
   setTimeout(() => {
     loading.value = false;
   }, 500);
 }
 
-const resetForm = (formEl: FormInstance | undefined) => {
+/* const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.resetFields();
   onSearch();
-};
+}; */
+/* function handleUpdate(row) {
+  console.log(row);
+} */
 
+function handleDelete(row) {
+  ElMessageBox.confirm(row.index ? `确认删除本行信息吗？` : "", "提示", {
+    type: "warning"
+  })
+    .then(() => {
+      ElMessage({
+        type: "success",
+        message: "删除成功"
+      });
+    })
+    .catch(() => {});
+}
+
+/* function handleSelectionChange(val) {
+  console.log("handleSelectionChange", val);
+} */
 onMounted(() => {
   onSearch();
 });
