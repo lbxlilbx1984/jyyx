@@ -128,10 +128,6 @@
         showOverflowTooltip
         table-layout="auto"
         :data="dataList"
-        :header-cell-style="{
-          background: 'var(--el-table-row-hover-bg-color)',
-          color: 'var(--el-text-color-primary)'
-        }"
       >
         <el-table-column fixed prop="index" label="序号" width="120" />
         <el-table-column prop="sf" label="省份" />
@@ -140,13 +136,6 @@
         <el-table-column prop="zip" label="操作" width="150">
           <template v-slot="scope">
             <template v-if="true">
-              <!-- <el-button
-                class="text-info"
-                size="mini"
-                type="text"
-                @click="resetSumbitPage(scope.$index, scope.row)"
-                >编辑</el-button
-              > -->
               <el-button
                 size="small"
                 type="danger"
@@ -156,35 +145,6 @@
                 >删除</el-button
               >
             </template>
-            <!-- <template v-if="scope.row.STATS && scope.row.STATS != '0'">
-              <el-button
-                class="text-info"
-                v-if="scope.row.STATS == '6'"
-                size="mini"
-                type="text"
-                @click="resetSumbitPage(scope.$index, scope.row)"
-                >重新提交</el-button
-              >
-              <el-button
-                class="text-info"
-                size="mini"
-                type="text"
-                @click="viewDetail(scope.$index, scope.row)"
-                >查看</el-button
-              >
-              <el-button
-                class="text-info"
-                size="mini"
-                type="text"
-                v-if="
-                  scope.row.STATS == '4' ||
-                  scope.row.STATS == '5' ||
-                  scope.row.STATS == '6'
-                "
-                @click="viewK2Detail(scope.$index, scope.row)"
-                >审批进度</el-button
-              >
-            </template> -->
           </template>
         </el-table-column>
       </el-table>
